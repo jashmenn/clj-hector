@@ -57,7 +57,6 @@
                     :char (CharSerializer/get)
                     :date (DateSerializer/get)
                     :double (DoubleSerializer/get)
-                    :fast-infoset (FastInfosetSerializer/get)
                     :float (FloatSerializer/get)
                     :object (ObjectSerializer/get)
                     :short (ShortSerializer/get)
