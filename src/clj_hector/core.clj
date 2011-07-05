@@ -43,7 +43,7 @@
   (s/to-clojure (.execute query)))
 
 (defnk get-super-rows
-  [ks cf pks sc :s-serializer :bytes :n-serializer :bytes :v-serializer :bytes :start nil :end nil]
+  [ks cf pks sc :s-serializer :bytes :n-serializer :bytes :v-serializer :bytes :start nil :end nil :reverse false :limit Integer/MAX_VALUE]
   (execute-query (doto (HFactory/createMultigetSuperSliceQuery ks
                                                                (s/serializer (first pks))
                                                                (s/serializer s-serializer)
@@ -52,18 +52,18 @@
                    (.setColumnFamily cf)
                    (.setKeys (object-array pks))
                    (.setColumnNames (object-array sc))
-                   (.setRange start end false Integer/MAX_VALUE))))
+                   (.setRange start end reverse limit))))
 
 (defnk get-rows
   "In keyspace ks, retrieve rows for pks within column family cf."
-  [ks cf pks :n-serializer :bytes :v-serializer :bytes :start nil :end nil]
+  [ks cf pks :n-serializer :bytes :v-serializer :bytes :start nil :end nil :reverse false :limit Integer/MAX_VALUE]
   (execute-query (doto (HFactory/createMultigetSliceQuery ks
                                                           (s/serializer (first pks))
                                                           (s/serializer n-serializer)
                                                           (s/serializer v-serializer))
                    (.setColumnFamily cf)
                    (.setKeys (object-array pks))
-                   (.setRange start end false Integer/MAX_VALUE))))
+                   (.setRange start end reverse limit))))
 
 (defnk get-super-columns
   [ks cf pk sc c :s-serializer :bytes :n-serializer :bytes :v-serializer :bytes]
