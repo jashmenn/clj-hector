@@ -1,6 +1,16 @@
 (ns clj-hector.serialize
-  (:import [me.prettyprint.cassandra.serializers StringSerializer IntegerSerializer LongSerializer TypeInferringSerializer BytesArraySerializer SerializerTypeInferer]
-           [me.prettyprint.cassandra.model QueryResultImpl HColumnImpl ColumnSliceImpl RowImpl RowsImpl SuperRowImpl SuperRowsImpl HSuperColumnImpl]))
+  (:import
+   [me.prettyprint.cassandra.serializers AsciiSerializer
+    BigIntegerSerializer BooleanSerializer ByteBufferSerializer
+    BytesArraySerializer CharSerializer CompositeSerializer
+    DateSerializer DoubleSerializer DynamicCompositeSerializer
+    FastInfosetSerializer FloatSerializer IntegerSerializer
+    JaxbSerializer LongSerializer ObjectSerializer
+    PrefixedSerializer SerializerTypeInferer ShortSerializer
+    StringSerializer TypeInferringSerializer UUIDSerializer]
+   [me.prettyprint.cassandra.model QueryResultImpl
+    HColumnImpl ColumnSliceImpl RowImpl RowsImpl
+    SuperRowImpl SuperRowsImpl HSuperColumnImpl]))
 
 (defprotocol ToClojure
   (to-clojure [x] "Convert hector types to Clojure data structures"))
@@ -38,7 +48,20 @@
 (def *serializers* {:integer (IntegerSerializer/get)
                     :string (StringSerializer/get)
                     :long (LongSerializer/get)
-                    :bytes (BytesArraySerializer/get)})
+                    :bytes (BytesArraySerializer/get)
+                    :infer (TypeInferringSerializer/get)
+                    :ascii (AsciiSerializer/get)
+                    :bigint (BigIntegerSerializer/get)
+                    :boolean (BooleanSerializer/get)
+                    :byte-buffer (ByteBufferSerializer/get)
+                    :char (CharSerializer/get)
+                    :date (DateSerializer/get)
+                    :double (DoubleSerializer/get)
+                    :fast-infoset (FastInfosetSerializer/get)
+                    :float (FloatSerializer/get)
+                    :object (ObjectSerializer/get)
+                    :short (ShortSerializer/get)
+                    :uuid (UUIDSerializer/get)})
 
 (defn serializer
   "Returns serialiser based on type of item"
