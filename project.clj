@@ -1,4 +1,4 @@
-(defproject org.clojars.paul/clj-hector "1.0.1-SNAPSHOT"
+(defproject org.clojars.nmurray/clj-hector "1.0.3-SNAPSHOT"
   :description "Wrapper for Hector Cassandra client"
   :dev-dependencies [[swank-clojure "1.2.1"]
                      [org.slf4j/slf4j-nop "1.5.8"]
